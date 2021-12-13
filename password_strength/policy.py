@@ -35,7 +35,7 @@ class PasswordPolicy(object):
         :rtype: PasswordPolicy
         :raises KeyError: wrong test name
         """
-        _tests.ATest.test_classes['length'](8)
+        _tests.ATest.test_classes['minlength'](12)
         tests = [ _tests.ATest.test_classes[name](
                       *(args if isinstance(args, (list, tuple)) else [args])
                   ) for name, args in tests.items() ]

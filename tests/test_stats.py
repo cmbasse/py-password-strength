@@ -5,7 +5,7 @@ import six
 from password_strength import PasswordStats
 
 
-class StatsTest(unittest.TestCase):
+class StatsTestCase(unittest.TestCase):
     """ Test PasswordStats """
 
     def test_statistics(self):
