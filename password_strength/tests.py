@@ -3,6 +3,7 @@
 from .tests_base import ATest
 from .bad_passwords import bad_password_lst
 
+
 class MinLength(ATest):
     """ Tests whether password length >= `length` """
 
@@ -127,7 +128,7 @@ class Strength(ATest):
 
 class DoesNotContain(ATest):
     """
-    Tests whether or not the illegal phrase is in the password.
+    Tests whether or not the any of the illegal phrases is in the password.
     It also checks that the illegal phrase backwards is not in the password.
     """
 
@@ -137,12 +138,15 @@ class DoesNotContain(ATest):
         self.case_dependent = case_dependent
 
     def test(self, ps):
-        if self.case_dependent:
-            return self.illegal_phrase not in ps.password and\
-                   self.illegal_phrase[::-1] not in ps.password
-        else:
-            return self.illegal_phrase.lower() not in ps.password.lower() and\
-                   self.illegal_phrase.lower()[::-1] not in ps.password.lower()
+        test_pass = ps.password if self.case_dependent else ps.password.lower()
+
+        if any(ip in test_pass for ip in self.illegal_phrase):
+            return False
+
+        if any(ip[::-1] in test_pass for ip in self.illegal_phrase):
+            return False
+
+        return True
 
     def __str__(self):
         return "Your password can not contain {}".format(self.illegal_phrase)
@@ -160,8 +164,13 @@ class TrivialVariant(ATest):
         self.min_difference = min_difference
 
     def test(self, ps):
-        count = sum(1 for a, b in zip(ps.password.lower(), self.illegal_phrase.lower()) if a != b) + abs(len(ps.password) - len(self.illegal_phrase))
-        return count > self.min_difference
+        test_pass = ps.password.lower()
+        for illegal in self.illegal_phrase:
+            count = sum(1 for a, b in zip(test_pass, illegal.lower()) if a != b) + abs(len(ps.password) - len(illegal))
+            if count <= self.min_difference:
+                return False
+
+        return True
 
     def __str__(self):
         return "You can not use trivial variations of {}".format(self.illegal_phrase)
@@ -169,7 +178,7 @@ class TrivialVariant(ATest):
 
 class BadPassword(ATest):
     """
-    Make sure the password isn't on the list of bad passwrods
+    Make sure the password isn't on the list of bad passwords
     """
 
     def __init__(self):

@@ -5,11 +5,11 @@ from setuptools import setup, find_packages
 
 setup(
     name='password_strength',
-    version='0.0.3-2',
+    version='0.0.5',
     author='Mark Vartanyan',
     author_email='kolypto@gmail.com',
 
-    url='https://github.com/kolypto/py-password-strength',
+    url='https://github.com/cmbasse/py-password-strength.git',
     license='BSD',
     description=__doc__,
     long_description=open('README.md').read(),
