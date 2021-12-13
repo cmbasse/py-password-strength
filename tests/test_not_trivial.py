@@ -64,6 +64,7 @@ class NotTrivialTestCase(unittest.TestCase):
         self.assertEqual(password_test.test(PasswordStats("adqzf")), True)
         self.assertEqual(password_test.test(PasswordStats("lmnop")), True)
         self.assertEqual(password_test.test(PasswordStats("12345")), True)
+        self.assertEqual(password_test.test(PasswordStats("palep")), True)
 
         password_test = TrivialVariant("a")
         self.assertEqual(password_test.test(PasswordStats("fred")), True)
