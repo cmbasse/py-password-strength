@@ -208,7 +208,7 @@ class EnglishWord(ATest):
         super(EnglishWord, self).__init__()
 
     def test(self, ps):
-        return ps.password not in words.words()
+        return ps.password.lower() not in [word.lower() for word in words.words()]
 
     def __str__(self):
         return "You can not use a word from the english dictionary."

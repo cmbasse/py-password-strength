@@ -15,11 +15,12 @@ class EnglishWordTestCase(unittest.TestCase):
         self.assertEqual(password_test.test(PasswordStats("Apple")), False)
         self.assertEqual(password_test.test(PasswordStats("bat")), False)
         self.assertEqual(password_test.test(PasswordStats("bridge")), False)
+        self.assertEqual(password_test.test(PasswordStats("Fred")), False)
+        self.assertEqual(password_test.test(PasswordStats("Abraham")), False)
 
     def test_should_return_true_when_not_dictionary_word(self):
         password_test = EnglishWord()
         self.assertEqual(password_test.test(PasswordStats("@pple")), True)
         self.assertEqual(password_test.test(PasswordStats("appl3")), True)
         self.assertEqual(password_test.test(PasswordStats("Fr3d")), True)
-        self.assertEqual(password_test.test(PasswordStats("Fred")), True)
         self.assertEqual(password_test.test(PasswordStats("thecatjumpedoverthehat")), True)
