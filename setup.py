@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='password_strength',
-    version='0.0.5',
+    version='0.0.6',
     author='Mark Vartanyan',
     author_email='kolypto@gmail.com',
 
@@ -22,6 +22,7 @@ setup(
 
     install_requires=[
         'six',
+        'nltk'
     ],
     extras_require={
     },

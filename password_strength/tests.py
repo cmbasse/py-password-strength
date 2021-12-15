@@ -2,7 +2,7 @@
 
 from .tests_base import ATest
 from .bad_passwords import bad_password_lst
-
+from nltk.corpus import words
 
 class MinLength(ATest):
     """ Tests whether password length >= `length` """
@@ -192,3 +192,23 @@ class BadPassword(ATest):
 
     def __str__(self):
         return "That password is to weak and can not be used"
+
+
+class EnglishWord(ATest):
+    """
+    Make sure the password isn't a single english dictionary word
+    """
+
+    # #################################################################### #
+    # Note before this test will work the nltk words must be downloaded    #
+    # follow these instructions https://www.nltk.org/data.html             #
+    # #################################################################### #
+
+    def __init__(self):
+        super(EnglishWord, self).__init__()
+
+    def test(self, ps):
+        return ps.password.lower() not in words.words()
+
+    def __str__(self):
+        return "You can not use a word from the english dictionary."
